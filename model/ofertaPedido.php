@@ -38,6 +38,5 @@ class oferta_pedido {
     public function setIdOferta($id_oferta) {
         $this->id_oferta = $id_oferta;
     }
-
 }
 ?>
