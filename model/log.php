@@ -1,10 +1,10 @@
 <?php
 
 class log {
-    private $id_log;
-    private $fecha;
-    private $accion;
-    private $id_usuario;
+    private int $id_log;
+    private DateTime $fecha;
+    private string $accion;
+    private int $id_usuario;
 
     public function __construct($id_log, $fecha, $accion, $id_usuario) {
         $this->id_log = $id_log;

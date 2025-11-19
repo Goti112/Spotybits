@@ -1,12 +1,12 @@
 <?php
 
 class oferta_pedido {
-    private $id_usuario;
-    private $nombre;
-    private $email;
-    private $contraseña;
-    private $direccion;
-    private $telefono;
+    private int $id_usuario;
+    private string $nombre;
+    private string $email;
+    private string $contraseña;
+    private string $direccion;
+    private string $telefono;
 
     public function __construct($id_usuario, $nombre, $email, $contraseña, $direccion, $telefono) {
         $this->id_usuario = $id_usuario;

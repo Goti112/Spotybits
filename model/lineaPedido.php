@@ -1,11 +1,11 @@
 <?php
 
 class lineaPedido {
-    private $id_linea;
-    private $id_pedido;
-    private $id_producto;
-    private $cantidad;
-    private $precio_unidad;
+    private int $id_linea;
+    private int $id_pedido;
+    private int $id_producto;
+    private int $cantidad;
+    private float $precio_unidad;
 
     public function __construct($id_linea, $id_pedido, $id_producto, $cantidad, $precio_unidad) {
         $this->id_linea = $id_linea;
@@ -25,7 +25,7 @@ class lineaPedido {
 
     public function getIdProducto() {
         return $this->id_producto;
-    }
+    }   
 
     public function getCantidad() {
         return $this->cantidad;

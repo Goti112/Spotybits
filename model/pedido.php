@@ -1,12 +1,12 @@
 <?php
 
 class oferta_pedido {
-    private $id_pedido;
-    private $fecha;
-    private $importe_total;
-    private $estado;
-    private $id_usuario;
-    private $id_oferta;
+    private int $id_pedido;
+    private DateTime $fecha;
+    private float $importe_total;
+    private string $estado;
+    private int $id_usuario;
+    private int $id_oferta;
 
     public function __construct($id_pedido, $fecha, $importe_total, $estado, $id_usuario, $id_oferta) {
         $this->id_pedido = $id_pedido;
