@@ -1,0 +1,124 @@
+.banner-principal {
+    height: 350px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #1DB954;
+}
+
+.banner-fondo {
+    background-image: url('../assets/Hero.png');    
+    background-position: center;
+    filter: brightness(40%); 
+    position: absolute;
+    inset: 0;
+}
+
+.titulo-banner {
+    font-size: 40px;
+}
+
+.tarjeta-plato {
+    background: #1b1b1b;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.tarjeta-plato:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.imagen-plato {
+    border-radius: 10px 10px 0 0;
+}
+
+.descripcion-plato {
+    color: #aaa;
+}
+
+.tarjeta-pequena {
+    background: #1b1b1b;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.tarjeta-pequena:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+}
+
+.precio-plato {
+    margin: 0;
+    color: #1DB954;
+    font-weight: bold;
+}
+
+.tarjeta-promocion {
+    background: #1b1b1b;
+    border-left: 4px solid #1DB954;
+    transition: transform .25s ease;
+}
+
+.tarjeta-promocion:hover {
+    transform: translateY(-4px);
+}
+
+.btn-promocion {
+    border-radius: 20px;
+}
+
+/* ======================= */
+/* NUEVO: IMÁGENES NOVEDADES FIJAS Y RECORTADAS */
+/* ======================= */
+.tarjeta-plato img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+/* ======================= */
+/* NUEVO: IMÁGENES TOP VENTAS FIJAS Y RECORTADAS */
+/* ======================= */
+.tarjeta-pequena img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+/* ======================= */
+/* RESPONSIVE (como tú lo tenías) */
+/* ======================= */
+@media (max-width: 768px) {
+    .titulo-banner {
+        font-size: 1.8rem;
+    }
+    
+    /* Ajuste en móvil para que no se vea muy alta la imagen de novedades */
+    .tarjeta-plato img {
+        height: 260px;
+    }
+    
+    .tarjeta-pequena img {
+        height: 160px;
+    }
+}
+
+/* Imagen de la promoción */
+.img-promocion {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* En móvil la imagen pasa arriba del texto */
+@media (max-width: 992px) {
+    .img-promocion {
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+}

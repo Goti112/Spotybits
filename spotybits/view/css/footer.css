@@ -1,0 +1,129 @@
+.footer {
+    background: #000;
+    color: #fff;
+    padding: 3rem 0 2rem;
+    font-size: 0.95rem;
+}
+
+.footer-contenedor {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 2rem;
+}
+
+.footer-superior {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.footer-logo-columna {
+    flex: 1 1 220px;
+}
+
+.footer-logo {
+    width: 50px;
+    margin-bottom: .6rem;
+}
+
+.footer-titulo {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.footer-columna {
+    flex: 1 1 160px;
+}
+
+.footer-subtitulo {
+    font-size: 0.83rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1rem;
+}
+
+.footer-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-lista li {
+    margin-bottom: .5rem;
+}
+
+.footer-enlace {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+}
+
+.footer-enlace:hover {
+    color: #1DB954;
+}
+
+.footer-columna-redes {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.footer-icono-red {
+    width: 42px;
+    height: 42px;
+    background: #222;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+}
+
+.footer-icono-red img {
+    width: 55%;
+    height: 55%;
+}
+
+.footer-icono-red:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.footer-divisor {
+    margin: 2.5rem 0;
+    border-color: #333;
+}
+
+.footer-inferior {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.footer-legales {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.8rem;
+}
+
+.footer-derecha {
+    text-align: right;
+    color: rgba(255,255,255,0.6);
+    font-size: .9rem;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .footer-superior {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .footer-derecha {
+        text-align: left;
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-class oferta_pedido {
+class producto {
     private int $id_producto;
     private string $nombre;
     private string $descripcion;

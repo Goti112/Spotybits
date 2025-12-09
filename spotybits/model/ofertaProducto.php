@@ -1,6 +1,6 @@
 <?php
 
-class oferta_pedido {
+class pedido {
     private int $id_oferta;
     private string $nombre;
     private float $descuento;
@@ -15,7 +15,7 @@ class oferta_pedido {
         $this->fecha_fin = $fecha_fin;
     }
 
-    public function getIdOferta() {
+    public function getIdProducto() {
         return $this->id_oferta;
     }
 
@@ -35,7 +35,7 @@ class oferta_pedido {
         return $this->fecha_fin;
     }
 
-    public function setIdOferta($id_oferta) {
+    public function setIdProducto($id_oferta) {
         $this->id_oferta = $id_oferta;
     }
 
