@@ -18,15 +18,15 @@
             <ul class="navbar-nav align-items-center">
 
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="?page=inicio">Inicio</a>
+                    <a class="nav-link" href="?pagina=inicio">Inicio</a>
                 </li>
 
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="?page=carta">Carta</a>
+                    <a class="nav-link" href="?pagina=carta">Carta</a>
                 </li>
 
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="?page=carrito">Carrito</a>
+                    <a class="nav-link" href="?pagina=carrito">Carrito</a>
                 </li>
 
                 <!-- palo que divide -->
@@ -43,18 +43,18 @@
                     </li>
 
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="?page=cerrarSesion">Cerrar Sesión</a>
+                        <a class="nav-link" href="index.php?accion=logout">Cerrar Sesión</a>
                     </li>
 
                 <?php else: ?>
 
                     <!-- si el usuario NO está conectado -->
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="?page=registro">Registrarse</a>
+                        <a class="nav-link" href="index.php?accion=registro">Registrarse</a>
                     </li>
 
                     <li class="nav-item mx-2">
-                        <a class="nav-link btn" href="?page=iniciarSesion">Iniciar Sesión</a>
+                        <a class="nav-link" href="index.php?accion=loginForm">Iniciar Sesión</a>
                     </li>
 
                 <?php endif; ?>

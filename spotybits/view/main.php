@@ -14,17 +14,17 @@
 
 <body class="bg-dark text-white">
 
-  <!-- se incluye la barra de navegación -->
+  <!-- NAVBAR -->
   <?php require_once __DIR__ . '/includes/navbar.php'; ?>
 
-  <!-- se incluye la página de inicio -->
-  <?php require_once __DIR__ . '/includes/inicio.php'; ?>
+  <!-- CONTENIDO DINÁMICO -->
+  <main class="container py-4">
+      <?php require $ruta; ?>
+  </main>
 
-  <!-- se incluye el pie de página -->
+  <!-- FOOTER -->
   <?php require_once __DIR__ . '/includes/footer.php'; ?>
 
-  <!-- JS de Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

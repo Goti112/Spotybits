@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Web_Spotify/ss">
+    <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/inicio.css">
 </head>
 <body class="bg-dark text-white">
 
