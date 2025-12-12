@@ -1,32 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro</title>
-</head>
-<body>
+<link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/registro.css">
 
-<h2>Crear cuenta</h2>
+<div class="contenedor-registro">
+    <h2 class="titulo-registro">Crear cuenta</h2>
 
-<form action="index.php?accion=registrar" method="POST">
+    <form action="index.php?accion=registrar" method="POST" class="form-registro">
 
-    <label>Nombre:</label>
-    <input type="text" name="nombre" required><br>
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
 
-    <label>Email:</label>
-    <input type="email" name="email" required><br>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <label>Contraseña:</label>
-    <input type="password" name="contrasena" required><br>
+        <label>Contraseña</label>
+        <input type="password" name="contrasena" required>
 
-    <label>Dirección:</label>
-    <input type="text" name="direccion"><br>
+        <label>Dirección</label>
+        <input type="text" name="direccion">
 
-    <label>Teléfono:</label>
-    <input type="text" name="telefono"><br>
+        <label>Teléfono</label>
+        <input type="text" name="telefono">
 
-    <button type="submit">Registrarse</button>
-</form>
-
-</body>
-</html>
+        <button type="submit" class="boton-registrar">Registrarse</button>
+    </form>
+</div>

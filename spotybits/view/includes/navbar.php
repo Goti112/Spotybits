@@ -1,3 +1,7 @@
+<?php
+// Seguridad: si por alguna razón no se ha iniciado la sesión la iniciamos
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+?>
 
 <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/navbar.css">
 
@@ -18,7 +22,7 @@
             <ul class="navbar-nav align-items-center">
 
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="?pagina=inicio">Inicio</a>
+                    <a class="nav-link" href="?pagina=home">Inicio</a>
                 </li>
 
                 <li class="nav-item mx-2">
@@ -38,7 +42,7 @@
                     <!-- si el usuario está conectado -->
                     <li class="nav-item mx-2">
                         <span class="text-white">
-                            Bienvenido, <?= htmlspecialchars($_SESSION['nombre_usuario']) ?>
+                            Bienvenido, <?= htmlspecialchars($_SESSION['usuario'] ?? '') ?>
                         </span>
                     </li>
 

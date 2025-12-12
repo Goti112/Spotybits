@@ -13,18 +13,26 @@ class UsuarioDAO {
 
         $stmt = $db->prepare($sql);
 
-
         //encriptar contraseña
         $contrasenaHash = password_hash($usuario->getContrasena(), PASSWORD_DEFAULT);
 
-        return $stmt->execute([
-            $usuario->getNombre(),
-            $usuario->getEmail(),
-            $contrasenaHash,
-            $usuario->getDireccion(),
-            $usuario->getTelefono(),
-            $usuario->getTipoUsuario()
-        ]);
+        try {
+            return $stmt->execute([
+                $usuario->getNombre(),
+                $usuario->getEmail(),
+                $contrasenaHash,
+                $usuario->getDireccion(),
+                $usuario->getTelefono(),
+                $usuario->getTipoUsuario()
+            ]);
+        } catch (PDOException $e) {
+            // Si es un duplicate entry (MySQL 1062) lo convertimos en excepción controlada
+            if (isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062) {
+                throw new Exception('duplicate_email', 1062);
+            }
+            // Otros errores se re-lanzan
+            throw $e;
+        }
     }
 
     //buscar usuario por email
@@ -49,8 +57,5 @@ class UsuarioDAO {
         );
 
     }
-
-
-
 
 }

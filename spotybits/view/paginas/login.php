@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
-</head>
-<body>
+<link rel="stylesheet" href="view/css/login.css">
 
-<h2>Iniciar sesión</h2>
+<div class="contenedor-login">
 
-<?php if (isset($_GET['error'])): ?>
-<p style="color:red;">Email o contraseña incorrectos</p>
-<?php endif; ?>
+    <h2 class="titulo-login">Iniciar sesión</h2>
 
-<form action="index.php?pagina=login" method="POST">
+    <form action="index.php?accion=login" method="POST" class="form-login">
 
-    <label>Email:</label>
-    <input type="email" name="email" required><br>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <label>Contraseña:</label>
-    <input type="password" name="contrasena" required><br>
+        <label>Contraseña</label>
+        <input type="password" name="contrasena" required>
 
-    <button type="submit">Entrar</button>
-</form>
+        <button type="submit" class="boton-login">Entrar</button>
+    </form>
 
-</body>
-</html>
+    <p class="texto-registro">¿No tienes cuenta?  
+        <a href="index.php?accion=registro">Regístrate aquí</a>
+    </p>
+
+</div>

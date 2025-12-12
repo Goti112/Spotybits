@@ -1,0 +1,15 @@
+.msg-error {
+    color: #b00020;
+    background: rgba(188, 63, 63, 0.12);
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+.msg-success {
+    color: #0b6623;
+    background: rgba(13, 114, 62, 0.12);
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+}

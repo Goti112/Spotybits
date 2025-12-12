@@ -1,0 +1,68 @@
+/* === CONTENEDOR GENERAL === */
+.contenedor-login {
+    max-width: 450px;
+    margin: 60px auto 80px auto;
+    background-color: #121212;
+    padding: 40px 50px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+/* === TÍTULO === */
+.titulo-login {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+/* === INPUTS === */
+.form-login label {
+    display: block;
+    font-weight: bold;
+    margin: 15px 0 5px;
+}
+
+.form-login input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.form-login input:focus {
+    outline: none;
+    border-color: #1ed760;
+}
+
+/* === BOTÓN === */
+.boton-login {
+    width: 100%;
+    background-color: #1ed760;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.boton-login:hover {
+    background-color: #19c457;
+}
+
+/* === SECCIÓN REGISTRO === */
+.texto-registro {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.texto-registro a {
+    color: #1ed760;
+    font-weight: bold;
+}

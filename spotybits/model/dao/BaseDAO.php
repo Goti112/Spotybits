@@ -5,7 +5,8 @@ require_once __DIR__ . '/../../database/database.php';
 
 class BaseDAO {
     protected static function getConnection() {
-        return database::getConnection();
+        // La clase en database.php se llama Database (con D mayúscula)
+        return Database::getConnection();
     }
 }
 ?>
