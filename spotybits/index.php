@@ -1,10 +1,12 @@
 <?php
 session_start();
 
-// Si viene ACCIÓN (login, registrar, logout...)
+// si llega "accion" empezamos login, registrar etc.
 if (isset($_GET['accion'])) {
 
+    require_once __DIR__ . "/controller/ProductoController.php";
     require_once __DIR__ . "/controller/UsuarioController.php";
+    
     $controller = new UsuarioController();
 
     switch ($_GET['accion']) {
@@ -33,21 +35,30 @@ if (isset($_GET['accion'])) {
             echo "Acción no válida.";
     }
 
-    exit; // Evita que cargue main.php debajo
+    exit; 
 }
 
 
 
-// -------------------------
-// SI NO VIENE ACCION → CARGAR PAGINAS
-// -------------------------
+//si no viene ningun "accion" se cargan las paginas con otro switch
 
 $pagina = $_GET['pagina'] ?? 'home';
 
-$ruta = __DIR__ . "/view/paginas/" . $pagina . ".php";
+switch ($pagina) {
 
-if (!file_exists($ruta)) {
-    $ruta = __DIR__ . "/view/paginas/404.php";
+    case 'carta':
+        require_once __DIR__ . '/controller/ProductoController.php';
+        $controller = new ProductoController();
+        $controller->mostrarCarta();
+        exit;
+
+    default:
+        $ruta = __DIR__ . "/view/paginas/$pagina.php";
+
+        if (!file_exists($ruta)) {
+            $ruta = __DIR__ . "/view/paginas/404.php";
+        }
+
+        require __DIR__ . '/view/main.php';
 }
 
-require __DIR__ . '/view/main.php';
