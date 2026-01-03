@@ -99,6 +99,7 @@ class UsuarioController {
     // Login correcto
     $_SESSION['usuario'] = $usuario->getNombre();
     $_SESSION['id_usuario'] = $usuario->getIdUsuario();
+    $_SESSION['tipo_usuario'] = $usuario->getTipoUsuario();
 
     header("Location: index.php?pagina=home");
 }

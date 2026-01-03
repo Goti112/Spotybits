@@ -52,6 +52,11 @@ switch ($pagina) {
         $controller->mostrarCarta();
         exit;
 
+    case 'admin':
+    $ruta = __DIR__ . '/view/paginas/admin.php';
+    require __DIR__ . '/view/main.php';
+    exit;
+
     default:
         $ruta = __DIR__ . "/view/paginas/$pagina.php";
 

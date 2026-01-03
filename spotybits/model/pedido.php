@@ -1,14 +1,14 @@
 <?php
 
-class oferta_pedido {
+class pedido {
     private int $id_pedido;
-    private DateTime $fecha;
-    private float $importe_total;
-    private string $estado;
+    private string $fecha;
+    private string $importe_total;
+    private float $estado;
     private int $id_usuario;
-    private int $id_oferta;
+    private ?int $id_oferta;
 
-    public function __construct($id_pedido, $fecha, $importe_total, $estado, $id_usuario, $id_oferta) {
+    public function __construct(int $id_pedido, string $fecha, string $importe_total, float $estado, int $id_usuario, ?int $id_oferta) {
         $this->id_pedido = $id_pedido;
         $this->fecha = $fecha;
         $this->importe_total = $importe_total;
@@ -17,54 +17,38 @@ class oferta_pedido {
         $this->id_oferta = $id_oferta;
     }
 
-    public function getIdPedido() {
+    public function getIdPedido(): int {
         return $this->id_pedido;
     }
 
-    public function getFecha() {
+    public function getFecha(): string {
         return $this->fecha;
     }
 
-    public function getImporteTotal() {
+    public function getImporteTotal(): string {
         return $this->importe_total;
     }
 
-    public function getEstado() {
+    public function getEstado(): float {
         return $this->estado;
     }
 
-    public function getIdUsuario() {
+    public function getIdUsuario(): int {
         return $this->id_usuario;
     }
 
-    public function getIdOferta() {
+    public function getIdOferta(): ?int {
         return $this->id_oferta;
     }
 
-    public function setIdPedido($id_pedido) {
-        $this->id_pedido = $id_pedido;
-    }
-
-    public function setFecha($fecha) {
-        $this->fecha = $fecha;
-    }
-
-    public function setImporteTotal($importe_total) {
-        $this->importe_total = $importe_total;
-    }
-
-    public function setEstado($estado) {
+    public function setEstado(float $estado): void {
         $this->estado = $estado;
     }
 
-    public function setIdUsuario($id_usuario) {
-        $this->id_usuario = $id_usuario;
-    }
 
-    public function setIdOferta($id_oferta) {
-        $this->id_oferta = $id_oferta;
-    }
 
+    
+
+   
 }
 ?>
-

@@ -1,9 +1,6 @@
 <?php
-// Seguridad: si por alguna razón no se ha iniciado la sesión la iniciamos
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 ?>
-
-<link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/navbar.css">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-black py-3">
     <div class="container">
@@ -38,6 +35,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
                 <!-- los botones se muestran según si el usuario está conectado o no -->
                 <?php if (!empty($_SESSION['id_usuario'])): ?>
+
+                <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                <li class="nav-item mx-2">
+                <a class="nav-link text-success fw-bold" href="?pagina=admin">Panel Admin</a>
+                </li>
+                <?php endif; ?>
+                    
                     
                     <!-- si el usuario está conectado -->
                     <li class="nav-item mx-2">
