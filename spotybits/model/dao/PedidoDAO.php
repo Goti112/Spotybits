@@ -31,7 +31,24 @@ class PedidoDAO {
         return $pedidos;
     }
 
+    public function crearPedido(?int $idUsuario, float $importeTotal, string $estado = 'pendiente', ?int $idOferta = null): int {
+        $sql = "INSERT INTO pedido (fecha, importe_total, estado, id_usuario, id_oferta) VALUES (NOW(), ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$importeTotal, $estado, $idUsuario, $idOferta]);
+        return (int)$this->db->lastInsertId();
+    }
+
+    public function insertarLineas(int $idPedido, array $lineas): void {
+        $sql = "INSERT INTO linea_pedido (id_pedido, id_producto, cantidad, precio_unidad) VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        foreach ($lineas as $ln) {
+            $stmt->execute([$idPedido, $ln['id_producto'], $ln['cantidad'], $ln['precio_unidad']]);
+        }
+    }
+
     public function actualizarEstado(int $idPedido, string $estado): void {
         $sql = "UPDATE pedido SET estado = ? WHERE id_pedido = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$estado, $idPedido]);
     }
 }

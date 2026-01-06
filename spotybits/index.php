@@ -1,47 +1,63 @@
 <?php
 session_start();
-
 // si llega "accion" empezamos login, registrar etc.
 if (isset($_GET['accion'])) {
 
-    require_once __DIR__ . "/controller/ProductoController.php";
     require_once __DIR__ . "/controller/UsuarioController.php";
-    
-    $controller = new UsuarioController();
+    require_once __DIR__ . "/controller/ProductoController.php";
+    require_once __DIR__ . "/controller/CarritoController.php";
+
+    $usuarioController = new UsuarioController();
+    $carritoController = new CarritoController();
 
     switch ($_GET['accion']) {
 
+        // ---------- usuarios ----------
         case 'registro':
-            $controller->mostrarRegistro();
+            $usuarioController->mostrarRegistro();
             break;
 
         case 'registrar':
-            $controller->registrar();
+            $usuarioController->registrar();
             break;
 
         case 'login':
-            $controller->login();
+            $usuarioController->login();
             break;
 
         case 'loginForm':
-            $controller->mostrarLogin();
+            $usuarioController->mostrarLogin();
             break;
 
         case 'logout':
-            $controller->logout();
+            $usuarioController->logout();
+            break;
+
+        // ---------- carrito ----------
+        case 'agregarCarrito':
+            $carritoController->agregar();
+            break;
+
+        case 'verCarrito':
+            $carritoController->ver();
+            break;
+
+        case 'eliminarCarrito':
+            $carritoController->eliminar();
+            break;
+
+        case 'confirmarPedido':
+            $carritoController->confirmarPedido();
             break;
 
         default:
             echo "Acción no válida.";
     }
 
-    exit; 
+    exit;
 }
 
-
-
 //si no viene ningun "accion" se cargan las paginas con otro switch
-
 $pagina = $_GET['pagina'] ?? 'home';
 
 switch ($pagina) {
@@ -53,9 +69,15 @@ switch ($pagina) {
         exit;
 
     case 'admin':
-    $ruta = __DIR__ . '/view/paginas/admin.php';
-    require __DIR__ . '/view/main.php';
-    exit;
+        $ruta = __DIR__ . '/view/paginas/admin.php';
+        require __DIR__ . '/view/main.php';
+        exit;
+
+    case 'carrito':
+        require_once __DIR__ . '/controller/CarritoController.php';
+        $controller = new CarritoController();
+        $controller->ver();
+        exit;
 
     default:
         $ruta = __DIR__ . "/view/paginas/$pagina.php";
@@ -66,4 +88,3 @@ switch ($pagina) {
 
         require __DIR__ . '/view/main.php';
 }
-

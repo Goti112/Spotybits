@@ -28,29 +28,32 @@
             <div class="row g-4">
                 <?php foreach ($productos as $producto): ?>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card producto-card h-100">
-                            <img src="/Web_Spotify/SPOTYBITS/spotybits/view/img/productos/default.jpg"
-                                 class="card-img-top"
-                                 alt="<?= htmlspecialchars($producto->getNombre()) ?>">
+                        <form method="post" action="index.php?accion=agregarCarrito" class="h-100 d-flex">
+                            <input type="hidden" name="id_producto" value="<?= htmlspecialchars($producto['id']) ?>">
+                            <div class="card producto-card h-100 w-100">
+                                <img src="<?= htmlspecialchars($producto['imagen'] ?? '/Web_Spotify/SPOTYBITS/spotybits/view/img/productos/default.jpg') ?>"
+                                     class="card-img-top"
+                                     alt="<?= htmlspecialchars($producto['nombre']) ?>">
 
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">
-                                    <?= htmlspecialchars($producto->getNombre()) ?>
-                                </h5>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">
+                                        <?= htmlspecialchars($producto['nombre']) ?>
+                                    </h5>
 
-                                <p class="card-text">
-                                    <?= htmlspecialchars($producto->getDescripcion()) ?>
-                                </p>
+                                    <p class="card-text">
+                                        <?= htmlspecialchars($producto['descripcion']) ?>
+                                    </p>
 
-                                <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <span class="precio">
-                                        <?= number_format($producto->getPrecio(), 2) ?> €
-                                    </span>
+                                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                                        <span class="precio">
+                                            <?= number_format($producto['precio'], 2) ?> €
+                                        </span>
 
-                                    <button class="btn btn-add" aria-label="Añadir al carrito">+</button>
+                                        <button type="submit" class="btn btn-success btn-sm" aria-label="Añadir al carrito">Añadir al carrito</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             </div>

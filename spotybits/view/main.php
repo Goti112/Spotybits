@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/footer.css">
   <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/messages.css">
   <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/carta.css">
+  <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/carrito.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 </head>

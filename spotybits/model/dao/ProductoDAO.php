@@ -59,4 +59,26 @@ class ProductoDAO {
         );
         $stmt->execute([$id]);
     }
+
+
+    public function obtenerPorId($id) {
+        $stmt = $this->db->prepare("SELECT * FROM producto WHERE id_producto = ?");
+        $stmt->execute([$id]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$fila) {
+            return null;
+        }
+
+        $id_oferta = array_key_exists('id_oferta', $fila) ? $fila['id_oferta'] : null;
+        return new producto(
+            $fila["id_producto"],
+            $fila["nombre"],
+            $fila["descripcion"],
+            (float) $fila["precio"],
+            (int) $fila["stock"],
+            $id_oferta,
+            $fila["imagen"] ?? null
+        );
+    }
 }
