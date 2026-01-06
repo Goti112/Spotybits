@@ -9,7 +9,7 @@ class UsuarioDAO {
     public function registrar(Usuario $usuario) {
         $db = Database::getConnection();
         $sql = "INSERT INTO usuarios (nombre, email, contrasena, direccion, telefono, tipo_usuario)
-                VALUES (?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $db->prepare($sql);
 
@@ -56,6 +56,25 @@ class UsuarioDAO {
             $fila['tipo_usuario']
         );
 
+    }
+
+    //obtener el usuario por el id
+    public function obtenerPorId($id) {
+        $db = Database::getConnection();
+        $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$fila) return null;
+        return new Usuario(
+            $fila['id_usuario'],
+            $fila['nombre'],
+            $fila['email'],
+            $fila['contrasena'],
+            $fila['direccion'],
+            $fila['telefono'],
+            $fila['tipo_usuario']
+        );
     }
 
 }

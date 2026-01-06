@@ -26,6 +26,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
                     <a class="nav-link" href="?pagina=carta">Carta</a>
                 </li>
 
+                <?php if (!empty($_SESSION['usuario']) || !empty($_SESSION['id_usuario'])): ?>
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="?pagina=mis_pedidos">Mis Pedidos</a>
+                </li>
+                <?php endif; ?>
+
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="?pagina=carrito">Carrito</a>
                 </li>

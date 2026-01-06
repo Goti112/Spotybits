@@ -79,6 +79,12 @@ switch ($pagina) {
         $controller->ver();
         exit;
 
+    case 'mis_pedidos':
+        require_once __DIR__ . '/controller/UsuarioPedidosController.php';
+        $controller = new UsuarioPedidosController();
+        $controller->listar();
+        exit;
+
     default:
         $ruta = __DIR__ . "/view/paginas/$pagina.php";
 
