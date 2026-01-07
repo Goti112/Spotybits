@@ -50,6 +50,12 @@ if (isset($_GET['accion'])) {
             $carritoController->confirmarPedido();
             break;
 
+        case 'guardarOferta':
+            require_once __DIR__ . '/controller/OfertaController.php';
+            $ofertaController = new OfertaController();
+            $ofertaController->guardar();
+            break;
+
         default:
             echo "Acción no válida.";
     }

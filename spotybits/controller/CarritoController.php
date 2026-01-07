@@ -100,13 +100,46 @@ class CarritoController {
             ];
         }
 
+        // --- logica de oferta ---
+        require_once __DIR__ . '/../model/dao/OfertaDAO.php';
+        $ofertaDAO = new OfertaDAO();
+        $ofertaActiva = $ofertaDAO->obtenerOfertaActiva();
+
+        $totalAntesDescuento = round($total, 2);
+        $descuento = 0.0;
+        $idOfertaAplicada = null;
+
+        if ($ofertaActiva) {
+            $minimo = (float)$ofertaActiva['minimo_compra'];
+            $porcentaje = (float)$ofertaActiva['porcentaje'];
+            if ($totalAntesDescuento >= $minimo) {
+                $descuento = round($totalAntesDescuento * ($porcentaje / 100.0), 2);
+                $idOfertaAplicada = $ofertaActiva['id_oferta'];
+            }
+        }
+
+        $importeFinal = round($totalAntesDescuento - $descuento, 2);
+
         try {
             $pedidoDAO->getDb()->beginTransaction();
 
-            $idPedido = $pedidoDAO->crearPedido($total, $idUsuario, 'pendiente', null);
+            // crear Pedido
+            $idPedido = $pedidoDAO->crearPedido($importeFinal, $idUsuario, 'pendiente', $idOfertaAplicada);
             $pedidoDAO->insertarLineas($idPedido, $lineas);
 
             $pedidoDAO->getDb()->commit();
+
+            // guardar info del ultimo pedido
+            $_SESSION['ultimo_pedido'] = [
+                'id' => $idPedido,
+                'fecha' => date('Y-m-d H:i:s'),
+                'importe_final' => number_format($importeFinal, 2, '.', ''),
+                'importe_antes_descuento' => number_format($totalAntesDescuento, 2, '.', ''),
+                'descuento' => number_format($descuento, 2, '.', ''),
+                'id_oferta' => $idOfertaAplicada,
+                'lineas' => $lineas,
+                'id_usuario' => $idUsuario
+            ];
 
             unset($_SESSION['carrito']);
             $_SESSION['success'] = 'Pedido confirmado correctamente';

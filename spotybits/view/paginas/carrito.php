@@ -58,6 +58,24 @@ $total = 0;
     <?php endforeach; ?>
 </div>
 
+    <?php
+    require_once __DIR__ . '/../../model/dao/OfertaDAO.php';
+    $ofertaDAO = new OfertaDAO();
+    $ofertaActiva = $ofertaDAO->obtenerOfertaActiva();
+
+    $totalAntesDescuento = round($total, 2);
+    $descuento = 0.0;
+    $totalFinal = $totalAntesDescuento;
+    if ($ofertaActiva) {
+        $minimo = (float)$ofertaActiva['minimo_compra'];
+        $porcentaje = (float)$ofertaActiva['porcentaje'];
+        if ($totalAntesDescuento >= $minimo) {
+            $descuento = round($totalAntesDescuento * ($porcentaje / 100.0), 2);
+            $totalFinal = round($totalAntesDescuento - $descuento, 2);
+        }
+    }
+    ?>
+
     <hr class="mb-5">
 
 
@@ -124,10 +142,26 @@ $total = 0;
 
               <hr>
 
-              <div class="d-flex justify-content-between fw-bold">
-                  <span>Total ahora</span>
-                  <span><?= number_format($total, 2) ?> €</span>
+              <div class="mb-2 d-flex justify-content-between">
+                  <span>Total sin descuento</span>
+                  <span><?= number_format($totalAntesDescuento, 2) ?> €</span>
               </div>
+
+              <?php if ($descuento > 0): ?>
+                  <div class="mb-2 d-flex justify-content-between text-warning">
+                      <span>Descuento aplicado</span>
+                      <span>- <?= number_format($descuento, 2) ?> €</span>
+                  </div>
+                  <div class="d-flex justify-content-between fw-bold">
+                      <span>Total final</span>
+                      <span><?= number_format($totalFinal, 2) ?> €</span>
+                  </div>
+              <?php else: ?>
+                  <div class="d-flex justify-content-between fw-bold">
+                      <span>Total ahora</span>
+                      <span><?= number_format($totalAntesDescuento, 2) ?> €</span>
+                  </div>
+              <?php endif; ?>
           </div>
 
           <form id="confirmar-pedido-form" method="post" action="index.php?accion=confirmarPedido" class="mt-4 text-center">

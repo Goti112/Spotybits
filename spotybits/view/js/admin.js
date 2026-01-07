@@ -23,6 +23,10 @@ function cargarSeccion(seccion) {
     const contenedor = document.getElementById("admin-contenido");
     contenedor.innerHTML = "";
 
+    // ocultar por defecto el wrapper de ofertas si existe
+    const ofertaWrapper = document.getElementById('oferta-form-wrapper');
+    if (ofertaWrapper) ofertaWrapper.style.display = 'none';
+
     if (seccion === "productos") {
         pintarFormularioProducto();
         cargarProductos();
@@ -38,6 +42,18 @@ function cargarSeccion(seccion) {
 
     if (seccion === "monedas") {
         contenedor.innerHTML = "<p class='text-muted'>Monedas (en construcción)</p>";
+    }
+
+    if (seccion === "ofertas") {
+        const wrapper = document.getElementById('oferta-form-wrapper');
+        if (wrapper) {
+            // mostrar el wrapper original (está fuera del contenedor principal)
+            wrapper.style.display = '';
+            // asegurar que el contenedor principal quede vacío
+            contenedor.innerHTML = '';
+        } else {
+            contenedor.innerHTML = "<p class='text-muted'>Ofertas (en construcción)</p>";
+        }
     }
 }
 
