@@ -37,11 +37,12 @@ function cargarSeccion(seccion) {
     }
 
     if (seccion === "logs") {
-        contenedor.innerHTML = "<p class='text-muted'>Logs (en construcción)</p>";
+        cargarLogs();
     }
 
     if (seccion === "monedas") {
-        contenedor.innerHTML = "<p class='text-muted'>Monedas (en construcción)</p>";
+        // Renderizamos la sección de monedas: lista de pedidos con importes en EUR
+        cargarMonedas();
     }
 
     if (seccion === "ofertas") {
@@ -191,12 +192,24 @@ function mostrarPedidos(pedidos) {
 
     let html = `
         <h5 class="mb-3">Pedidos</h5>
+
+        <div class="mb-3 d-flex align-items-center">
+            <label for="currency-select-admin" class="me-2 mb-0">Moneda:</label>
+            <select id="currency-select-admin" class="form-select form-select-sm w-auto">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="MXN">MXN</option>
+            </select>
+            <div id="currency-error" class="text-danger ms-3" style="display:none"></div>
+        </div>
+
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Fecha</th>
-                    <th>Total (€)</th>
+                    <th id="th-total">Total (EUR)</th>
                     <th>Estado</th>
                     <th>Usuario</th>
                 </tr>
@@ -211,7 +224,7 @@ function mostrarPedidos(pedidos) {
             <tr>
                 <td>${pedido.id}</td>
                 <td>${pedido.fecha}</td>
-                <td>${pedido.importe_total}</td>
+                <td class="importe" data-eur="${pedido.importe_total}">${pedido.importe_total}</td>
                 <td>
                     <select class="form-select form-select-sm bg-dark text-white"
                         onchange="cambiarEstado(${pedido.id}, this.value)">
@@ -227,6 +240,10 @@ function mostrarPedidos(pedidos) {
 
     html += `</tbody></table>`;
     contenedor.innerHTML = html;
+    // Inicializar widget de monedas si existe el script
+    if (window.initCurrencyWidget) {
+        try { window.initCurrencyWidget(); } catch (e) { console.error('initCurrencyWidget error', e); }
+    }
 }
 
 //funcion para cambiar el estado de los pedidos
@@ -240,4 +257,116 @@ function cambiarEstado(idPedido, estado) {
     })
     .then(() => cargarPedidos())
     .catch(() => alert("Error al cambiar estado"));
+}
+
+// mostrar mensaje de error simple
+function mostrarError(msg) {
+    const contenedor = document.getElementById("admin-contenido");
+    if (contenedor) contenedor.innerHTML = `<p class='text-muted'>${msg}</p>`;
+}
+
+// cargar y mostrar logs
+function cargarLogs() {
+    fetch("/Web_Spotify/SPOTYBITS/spotybits/controller/api/logsAPI.php")
+        .then(res => res.json())
+        .then(logs => mostrarLogs(logs))
+        .catch(() => mostrarError("No se han podido cargar los logs"));
+}
+
+// cargar pedidos para la sección monedas
+function cargarMonedas() {
+    fetch("/Web_Spotify/SPOTYBITS/spotybits/controller/api/pedidosAPI.php")
+        .then(res => res.json())
+        .then(pedidos => mostrarMonedas(pedidos))
+        .catch(() => mostrarError("No se han podido cargar los pedidos para la sección monedas"));
+}
+
+function mostrarMonedas(pedidos) {
+    const contenedor = document.getElementById("admin-contenido");
+
+    if (!pedidos || pedidos.length === 0) {
+        contenedor.innerHTML = "<p class='text-muted'>No hay pedidos</p>";
+        return;
+    }
+
+    let html = `
+        <h5 class="mb-3">Pedidos (conversión de moneda)</h5>
+
+        <div class="mb-3 d-flex align-items-center">
+            <label for="currency-select-admin" class="me-2 mb-0">Moneda:</label>
+            <select id="currency-select-admin" class="form-select form-select-sm w-auto">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="MXN">MXN</option>
+            </select>
+            <div id="currency-error" class="text-danger ms-3" style="display:none"></div>
+        </div>
+
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th id="th-total">Total (EUR)</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    pedidos.forEach(pedido => {
+        html += `
+            <tr>
+                <td>${pedido.id}</td>
+                <td>${pedido.fecha}</td>
+                <td class="importe" data-eur="${pedido.importe_total}">${pedido.importe_total}</td>
+                <td>${pedido.id_usuario ?? "—"}</td>
+            </tr>
+        `;
+    });
+
+    html += `</tbody></table>`;
+    contenedor.innerHTML = html;
+
+    if (window.initCurrencyWidget) {
+        try { window.initCurrencyWidget(); } catch (e) { console.error('initCurrencyWidget error', e); }
+    }
+}
+
+function mostrarLogs(logs) {
+    const contenedor = document.getElementById("admin-contenido");
+
+    if (!logs || logs.length === 0) {
+        contenedor.innerHTML = "<p class='text-muted'>No hay logs</p>";
+        return;
+    }
+
+    let html = `
+        <h5 class="mb-3">Histórico de Logs</h5>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Acción</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    logs.forEach(l => {
+        html += `
+            <tr>
+                <td>${l.id_log}</td>
+                <td>${l.fecha}</td>
+                <td>${l.accion}</td>
+                <td>${l.nombre ?? '—'}</td>
+            </tr>
+        `;
+    });
+
+    html += `</tbody></table>`;
+    contenedor.innerHTML = html;
 }

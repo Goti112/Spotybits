@@ -1,7 +1,7 @@
 <?php
 
 header("Content-Type: application/json");
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 require_once __DIR__ . "/../../model/dao/PedidoDAO.php";
 
@@ -30,8 +30,12 @@ switch ($method) {
             echo json_encode(["error" => "Datos inválidos"]);
             exit;
         }
-
         $dao->actualizarEstado($data['id'], $data['estado']);
+
+        require_once __DIR__ . '/../../model/dao/logDAO.php';
+        $logDAO = new logDAO();
+        $logDAO->registrar($_SESSION['id_usuario'] ?? null, 'CAMBIAR_ESTADO_PEDIDO #' . $data['id'] . ' -> ' . $data['estado']);
+
         echo json_encode(["success" => true]);
         break;
 

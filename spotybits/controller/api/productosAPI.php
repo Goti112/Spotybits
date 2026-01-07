@@ -1,8 +1,7 @@
 <?php
 
 header("Content-Type: application/json");
-
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 require_once __DIR__ . '/../../database/database.php';
 require_once __DIR__ . '/../../model/dao/ProductoDAO.php';
@@ -39,6 +38,14 @@ switch($method) {
             $data['stock']
         );
 
+        // registrar log
+        require_once __DIR__ . '/../../model/dao/logDAO.php';
+        $logDAO = new logDAO();
+        $idUsuario = $_SESSION['id_usuario'] ?? null;
+        // obtener id del producto insertado
+        $lastId = Database::getConnection()->lastInsertId();
+        $logDAO->registrar($idUsuario, 'CREAR_PRODUCTO #' . $lastId . ' ' . ($data['nombre'] ?? ''));
+
         echo json_encode(["success" => true]);
         break;
 
@@ -53,6 +60,10 @@ switch($method) {
                 $data['stock']
             );
 
+            require_once __DIR__ . '/../../model/dao/logDAO.php';
+            $logDAO = new logDAO();
+            $logDAO->registrar($_SESSION['id_usuario'] ?? null, 'EDITAR_PRODUCTO #' . $data['id']);
+
             echo json_encode(["success" => true]);
             break;
 
@@ -66,6 +77,11 @@ switch($method) {
     }
 
     $dao->eliminar($data['id']);
+
+    require_once __DIR__ . '/../../model/dao/logDAO.php';
+    $logDAO = new logDAO();
+    $logDAO->registrar($_SESSION['id_usuario'] ?? null, 'ELIMINAR_PRODUCTO #' . $data['id']);
+
     echo json_encode(["success" => true]);
     break;
 

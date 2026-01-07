@@ -22,14 +22,14 @@ class UsuarioController {
             exit;
         }
 
-        // Iniciamos sesión para pasar mensajes flash
+        // iniciamos sesión para pasar mensajes flash
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
         $usuarioDAO = new UsuarioDAO();
 
         $email = $_POST['email'] ?? '';
 
-        // Pre-check: si ya existe el email mostramos mensaje y redirigimos
+        //si ya existe el email mostramos mensaje y redirigimos
         if ($usuarioDAO->obtenerPorEmail($email) !== null) {
             $_SESSION['error'] = 'El correo ya está registrado';
             header("Location: index.php?accion=registro");
@@ -49,7 +49,7 @@ class UsuarioController {
         try {
     $ok = $usuarioDAO->registrar($nuevoUsuario);
     if ($ok) {
-        // Redirigimos al login limpio, sin mensajes de sesión
+        //redirigimos al login limpio, sin mensajes de sesión
         header("Location: index.php?accion=login");
         exit;
     } else {
@@ -70,7 +70,7 @@ class UsuarioController {
     }
 
     public function login() {
-    // Si no hay POST, solo mostramos el formulario
+    //si no hay POST, solo mostramos el formulario
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         $this->mostrarLogin();
         return;
@@ -96,16 +96,29 @@ class UsuarioController {
         return;
     }
 
-    // Login correcto
+    // login correcto
     $_SESSION['usuario'] = $usuario->getNombre();
     $_SESSION['id_usuario'] = $usuario->getIdUsuario();
     $_SESSION['tipo_usuario'] = $usuario->getTipoUsuario();
+
+    require_once __DIR__ . '/../model/dao/LogDAO.php';
+    $logDAO = new LogDAO();
+    $logDAO->registrar(
+        $usuario->getIdUsuario(),
+        'LOGIN'
+);
 
     header("Location: index.php?pagina=home");
 }
 
     public function logout() {
-        session_start();
+        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+        require_once __DIR__ . '/../model/dao/LogDAO.php';
+        $logDAO = new LogDAO();
+        $logDAO->registrar(
+            $_SESSION['id_usuario'] ?? null,
+            'LOGOUT'
+);
         session_destroy();
         header("Location: index.php?pagina=home");
     }

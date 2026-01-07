@@ -60,7 +60,7 @@ class CarritoController {
         $idUsuario = (int) $_SESSION['id_usuario'];
         if ($idUsuario <= 0) {
             session_destroy();
-            session_start();
+            if (session_status() !== PHP_SESSION_ACTIVE) session_start();
             $_SESSION['error'] = 'Sesión inválida. Inicia sesión de nuevo.';
             header("Location: index.php?accion=loginForm");
             exit;
@@ -70,7 +70,7 @@ class CarritoController {
         $usuarioDAO = new UsuarioDAO();
         if ($usuarioDAO->obtenerPorId($idUsuario) === null) {
             session_destroy();
-            session_start();
+            if (session_status() !== PHP_SESSION_ACTIVE) session_start();
             $_SESSION['error'] = 'Usuario no válido';
             header("Location: index.php?accion=loginForm");
             exit;
@@ -129,6 +129,12 @@ class CarritoController {
 
             $pedidoDAO->getDb()->commit();
 
+            require_once __DIR__ . '/../model/dao/LogDAO.php';
+            $logDAO = new LogDAO();
+            $logDAO->registrar(
+                $idUsuario,
+                'CREAR_PEDIDO #' . $idPedido
+            );  
             // guardar info del ultimo pedido
             $_SESSION['ultimo_pedido'] = [
                 'id' => $idPedido,

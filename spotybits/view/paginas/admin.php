@@ -108,3 +108,4 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'admin') 
 </div>
 
 <script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/admin.js"></script>
+<script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/adminMonedas.js"></script>
