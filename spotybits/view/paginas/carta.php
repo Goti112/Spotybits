@@ -11,7 +11,7 @@
 
             <div class="filtro-titulo">Tipo de plato</div>
             <ul class="list-unstyled filtros">
-                <li class="activo">Primer plato</li>
+                <li>Primer plato</li>
                 <li>Segundo plato</li>
                 <li>Postres</li>
                 <li>Bebidas</li>
@@ -27,13 +27,13 @@
 
             <div class="row g-4">
                 <?php foreach ($productos as $producto): ?>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 producto-col" data-tipo="<?= htmlspecialchars($producto['tipo'] ?? '') ?>">
                         <form method="post" action="index.php?accion=agregarCarrito" class="h-100 d-flex">
                             <input type="hidden" name="id_producto" value="<?= htmlspecialchars($producto['id']) ?>">
                             <div class="card producto-card h-100 w-100">
-                                <img src="<?= htmlspecialchars($producto['imagen'] ?? '/Web_Spotify/SPOTYBITS/spotybits/view/img/productos/default.jpg') ?>"
-                                     class="card-img-top"
-                                     alt="<?= htmlspecialchars($producto['nombre']) ?>">
+                                <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/productos/<?= htmlspecialchars($producto['imagen'] ?: 'default.jpg') ?>"
+                                class="card-img-top"
+                                alt="<?= htmlspecialchars($producto['nombre']) ?>">
 
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">
@@ -57,6 +57,38 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+
+            <script>
+                (function(){
+                    const filtros = document.querySelectorAll('.filtros li');
+                    const productos = document.querySelectorAll('.producto-col');
+
+                    if (!filtros || filtros.length === 0) return;
+
+                    filtros.forEach(li => li.addEventListener('click', function(){
+                        filtros.forEach(x => x.classList.remove('activo'));
+                        this.classList.add('activo');
+
+                        const texto = this.textContent.trim().toLowerCase();
+                        const map = {
+                            'primer plato': 'primer',
+                            'segundo plato': 'segundo',
+                            'postres': 'postre',
+                            'postre': 'postre',
+                            'bebidas': 'bebida',
+                            'bebida': 'bebida'
+                        };
+
+                        const tipo = map[texto] || null;
+
+                        productos.forEach(col => {
+                            const t = (col.dataset.tipo || '').toLowerCase();
+                            if (!tipo) { col.style.display = ''; return; }
+                            col.style.display = (t === tipo) ? '' : 'none';
+                        });
+                    }));
+                })();
+            </script>
 
         <?php endif; ?>
     </section>

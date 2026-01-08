@@ -26,11 +26,11 @@ class UsuarioDAO {
                 $usuario->getTipoUsuario()
             ]);
         } catch (PDOException $e) {
-            // Si es un duplicate entry (MySQL 1062) lo convertimos en excepción controlada
+            // si es un duplicate entry se convertira en una excepcion controlada
             if (isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062) {
                 throw new Exception('duplicate_email', 1062);
             }
-            // Otros errores se re-lanzan
+            // otros errores se relanzan
             throw $e;
         }
     }

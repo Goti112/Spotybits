@@ -27,14 +27,13 @@
   <?php require_once __DIR__ . '/includes/navbar.php'; ?>
           
       <!-- mensajes de error -->
-      <?php if (!empty($_SESSION['error'])): ?>
+        <?php if (!empty($_SESSION['error'])): ?>
           <div class="msg-error"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></div>
-      <?php endif; ?>
+        <?php endif; ?>
 
-      <?php if (!empty($_SESSION['success'])): ?>
+        <?php if (!empty($_SESSION['success'])): ?>
           <div class="msg-success"><?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?></div>
-      <?php endif; ?>
-  </div>
+        <?php endif; ?>
   <main class="container py-4">
       <?php require $ruta; ?>
   </main>

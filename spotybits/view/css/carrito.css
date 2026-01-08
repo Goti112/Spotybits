@@ -1,6 +1,4 @@
-/* =========================
-   ESTILOS GENERALES
-   ========================= */
+/* */
 
 .card {
     border-radius: 12px;
@@ -11,9 +9,7 @@ hr {
 }
 
 
-/* =========================
-   CONTENEDOR PRINCIPAL
-   ========================= */
+/* Contenedor principal */
 
 .carrito-page {
     background: #ffffff !important;
@@ -27,9 +23,7 @@ hr {
 }
 
 
-/* =========================
-   CABECERA
-   ========================= */
+/* Cabecera */
 
 .carrito-header h1 {
     font-size: 28px;
@@ -41,9 +35,7 @@ hr {
 }
 
 
-/* =========================
-   TARJETAS DE PRODUCTO
-   ========================= */
+/* tarjetas de producto */
 
 .product-card {
     background: linear-gradient(180deg, #121317 0%, #0b0e10 100%);
@@ -73,9 +65,7 @@ hr {
 }
 
 
-/* =========================
-   TEXTO DEL PRODUCTO
-   ========================= */
+/* texto del producto */
 
 .product-name {
     font-size: 16px;
@@ -106,9 +96,7 @@ hr {
 }
 
 
-/* =========================
-   BOTONES
-   ========================= */
+/* botones */
 
 .btn-remove {
     width: 42px;
@@ -132,10 +120,7 @@ hr {
 }
 
 
-/* =========================
-   RESUMEN
-   ========================= */
-
+/* resumen */
 .summary-card {
     background: #f7f7f7;
     border-radius: 8px;
@@ -144,9 +129,7 @@ hr {
 }
 
 
-/* =========================
-   DIRECCIÓN
-   ========================= */
+/* direccion */
 
 .address-actions {
     margin-top: 12px;
@@ -154,9 +137,7 @@ hr {
 }
 
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* responsive */
 
 @media (max-width: 767px) {
     .product-thumb {

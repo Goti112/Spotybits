@@ -5,47 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpotyBits - Inicio</title>
 
-    <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/inicio.css">
 </head>
 <body class="bg-dark text-white">
 
-    <!-- BANNER PRINCIPAL -->
+    <!-- banner principal -->
     <section id="banner-principal" class="banner-principal position-relative">
-        <div class="banner-fondo"></div>
-        <div class="container position-relative texto-banner">
-            <h1 class="fw-bold titulo-banner">Descubre nuestros platos más populares</h1>
-            <button class="btn btn-light mt-3 btn-banner">Ver Menú</button>
+        <div class="banner-fondo" aria-hidden="true"></div>
+        <div class="container position-relative texto-banner text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="fw-bold titulo-banner">Descubre nuestros platos más populares</h1>
+                    <p class="lead text-white-50 mt-3">Sabores únicos, ingredientes frescos y recetas que te encantarán.</p>
+                    <a href="index.php?pagina=carta" class="btn btn-success mt-3 btn-banner shadow-sm text-white">Ver Menú</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- SECCIÓN NOVEDADES (AHORA CON ESTILO UNIFICADO) -->
+    <!-- seccion novedades -->
     <section class="container mt-5">
         <h2 class="fw-bold mb-4">Novedades</h2>
 
         <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
             
-            <!-- Tarjeta Novedad 1 -->
+            <!-- tarjeta novedad 1 -->
             <div class="col">
                 <div class="tarjeta-plato shadow rounded tarjeta-hover overflow-hidden">
                     <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/Spagetis_V.png" 
-                         class="img-novedad" alt="Tagliatelle al Pesto">
+                        class="img-novedad" alt="Tagliatelle al Pesto" loading="lazy">
                     <div class="p-4 text-center bg-dark">
-                        <h5 class="fw-bold mb-2">Tagliatelle al Pesto Genovese</h5>
-                        <p class="descripcion-plato mb-0">Pasta fresca con pesto de albahaca, parmesano y piñones.</p>
+                        <h5 class="fw-bold mb-2">Pasta al pesto</h5>
+                        <p class="descripcion-plato mb-0">Pasta al pesto con tomate cherry.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Tarjeta Novedad 2 -->
+            <!-- tarjeta novedad 2 -->
             <div class="col">
                 <div class="tarjeta-plato shadow rounded tarjeta-hover overflow-hidden">
-                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/Costillas.png" 
-                         class="img-novedad" alt="Bacon Cheeseburger">
+                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto2.jpg" 
+                        class="img-novedad" alt="Bacon Cheeseburger" loading="lazy">
                     <div class="p-4 text-center bg-dark">
-                        <h5 class="fw-bold mb-2">Bacon Cheeseburger Premium</h5>
-                        <p class="descripcion-plato mb-0">Carne 100% vacuno a la parrilla, cheddar fundido y bacon crujiente</p>
+                        <h5 class="fw-bold mb-2">Pasta Cremosa al Basilico</h5>
+                        <p class="descripcion-plato mb-0">Pasta artesanal bañada en una suave salsa cremosa de tomate</p>
                     </div>
                 </div>
             </div>
@@ -53,61 +57,59 @@
         </div>
     </section>
 
-    <!-- SECCIÓN TOP VENTAS (ya corregida y centrada con 5 tarjetas) -->
+    <!-- seccion top ventas -->
     <section class="container mt-5">
         <h2 class="fw-bold mb-4">Top ventas</h2>
 
         <div class="row row-cols-2 row-cols-md-5 g-3 g-md-4 justify-content-center">
             <div class="col">
                 <div class="tarjeta-pequena shadow rounded tarjeta-hover overflow-hidden">
-                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto1.jpg" class="img-top" alt="Classic Burger">
-                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Classic Burger</h6><p class="precio-plato mb-0">12,99€</p></div>
+                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto1.jpg" class="img-top" alt="Classic Burger" loading="lazy">
+                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Ensalada</h6><p class="precio-plato mb-0">11,99€</p></div>
                 </div>
             </div>
             <div class="col">
                 <div class="tarjeta-pequena shadow rounded tarjeta-hover overflow-hidden">
-                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto2.jpg" class="img-top" alt="Pizza Margherita">
-                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Pizza Margherita</h6><p class="precio-plato mb-0">10,90€</p></div>
+                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto2.jpg" class="img-top" alt="Pizza Margherita" loading="lazy">
+                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Pasta Cremosa al Basilico</h6><p class="precio-plato mb-0">10,90€</p></div>
                 </div>
             </div>
             <div class="col">
                 <div class="tarjeta-pequena shadow rounded tarjeta-hover overflow-hidden">
-                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto3.jpg" class="img-top" alt="Ensalada César">
-                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Ensalada César</h6><p class="precio-plato mb-0">9,50€</p></div>
+                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto3.jpg" class="img-top" alt="Ensalada César" loading="lazy">
+                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Tiramisú</h6><p class="precio-plato mb-0">9,50€</p></div>
                 </div>
             </div>
             <div class="col">
                 <div class="tarjeta-pequena shadow rounded tarjeta-hover overflow-hidden">
-                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto4.jpg" a class="img-top" alt="Tiramisú">
-                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Tiramisú</h6><p class="precio-plato mb-0">6,50€</p></div>
+                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto4.jpg" class="img-top" alt="Tiramisú" loading="lazy">
+                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Solomillo</h6><p class="precio-plato mb-0">6,50€</p></div>
                 </div>
             </div>
             <div class="col">
                 <div class="tarjeta-pequena shadow rounded tarjeta-hover overflow-hidden">
-                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto5.png" class="img-top" alt="Pasta Carbonara">
-                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Pasta Carbonara</h6><p class="precio-plato mb-0">11,90€</p></div>
+                    <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/producto5.png" class="img-top" alt="Pasta Carbonara" loading="lazy">
+                    <div class="p-3 text-center bg-dark"><h6 class="fw-bold mb-1">Costillas</h6><p class="precio-plato mb-0">11,90€</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =======================
-     SECCIÓN PROMOCIONES
-========================== -->
+    <!-- seccion de promociones -->
 <section class="container mt-5 mb-5">
     <h2 class="fw-bold mb-4">Promociones</h2>
 
     <div class="tarjeta-promocion p-4 p-lg-5 rounded shadow-lg overflow-hidden">
         <div class="row align-items-center g-4 g-lg-5">
             
-            <!-- IMAGEN A LA IZQUIERDA -->
+            <!-- imagen a la izquierda -->
             <div class="col-lg-5 text-center text-lg-start">
-                <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/promocion.png" 
+                 <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/promocion.png" 
                      alt="Promoción especial" 
-                     class="img-promocion rounded">
+                     class="img-promocion rounded" loading="lazy">
             </div>
 
-            <!-- TEXTO Y BOTÓN A LA DERECHA -->
+            <!-- texto y boton a la derecha -->
             <div class="col-lg-7">
                 <h4 class="fw-bold mb-3">
                     Tu mesa, tu música. Disfruta de una experiencia única
@@ -115,7 +117,7 @@
                 <p class="text-white-50 mb-4">
                     Reserva ahora y elige la playlist que sonará en tu mesa. ¡Solo en SpotyBits!
                 </p>
-                <button class="btn btn-light btn-promocion px-4 py-2">Reservar ahora</button>
+                <a href="index.php?pagina=registro" class="btn btn-light btn-promocion px-4 py-2">Reservar ahora</a>
             </div>
         </div>
     </div>

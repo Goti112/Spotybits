@@ -4,10 +4,9 @@
 
     <div class="footer-contenedor">
 
-        <!-- === SECCIÓN SUPERIOR === -->
         <div class="footer-superior">
 
-            <!-- Logo y nombre -->
+            <!-- logo y nombre -->
             <div class="footer-logo-columna">
                 <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/Logo_SpotyBits.png"
                      alt="Logo SpotyBits"
@@ -15,7 +14,7 @@
                 <h2 class="footer-titulo">SpotyBits</h2>
             </div>
 
-            <!-- Compañía -->
+            <!-- compañia -->
             <div class="footer-columna">
                 <h6 class="footer-subtitulo">COMPAÑÍA</h6>
                 <ul class="footer-lista">
@@ -25,7 +24,7 @@
                 </ul>
             </div>
 
-            <!-- Comunidades -->
+            <!-- comunidades -->
             <div class="footer-columna">
                 <h6 class="footer-subtitulo">COMUNIDADES</h6>
                 <ul class="footer-lista">
@@ -37,7 +36,7 @@
                 </ul>
             </div>
 
-            <!-- Enlaces útiles -->
+            <!-- enlaces utiles -->
             <div class="footer-columna">
                 <h6 class="footer-subtitulo">ENLACES ÚTILES</h6>
                 <ul class="footer-lista">
@@ -47,7 +46,7 @@
                 </ul>
             </div>
 
-            <!-- Redes sociales -->
+            <!-- redes sociales -->
             <div class="footer-columna-redes">
                 <a class="footer-icono-red">
                     <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/instagram.png" alt="">
@@ -64,7 +63,7 @@
 
         <hr class="footer-divisor">
 
-        <!-- === SECCIÓN INFERIOR === -->
+        <!-- === seccion inferior === -->
         <div class="footer-inferior">
 
             <div class="footer-legales">

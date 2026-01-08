@@ -35,7 +35,8 @@ switch($method) {
             $data['nombre'],
             $data['descripcion'],
             $data['precio'],
-            $data['stock']
+            $data['stock'],
+            $data['tipo'] ?? null
         );
 
         // registrar log
@@ -57,7 +58,8 @@ switch($method) {
                 $data['nombre'],
                 $data['descripcion'],
                 $data['precio'],
-                $data['stock']
+                $data['stock'],
+                $data['tipo'] ?? null
             );
 
             require_once __DIR__ . '/../../model/dao/logDAO.php';

@@ -8,9 +8,10 @@ class producto {
     private int $stock;
     private ?int $id_oferta;
     private ?string $imagen;
+    private ?string $tipo;
 
 
-    public function __construct($id_producto, $nombre, $descripcion, $precio, $stock, ?int $id_oferta, $imagen = null) {
+    public function __construct($id_producto, $nombre, $descripcion, $precio, $stock, ?int $id_oferta, $imagen = null, $tipo = null) {
         $this->id_producto = $id_producto;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
@@ -18,6 +19,7 @@ class producto {
         $this->stock = $stock;
         $this->id_oferta = $id_oferta;
         $this->imagen = $imagen;
+        $this->tipo = $tipo;
     }
 
     public function getIdProducto() {
@@ -48,6 +50,10 @@ class producto {
         return $this->imagen;
     }
 
+    public function getTipo() {
+        return $this->tipo;
+    }
+
     public function setIdProducto($id_producto) {
         $this->id_producto = $id_producto;
     }
@@ -70,6 +76,10 @@ class producto {
 
     public function setIdOferta(?int $id_oferta) {
         $this->id_oferta = $id_oferta;
+    }
+
+    public function setTipo(?string $tipo) {
+        $this->tipo = $tipo;
     }
 
 }

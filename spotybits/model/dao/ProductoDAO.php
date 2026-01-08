@@ -26,7 +26,8 @@ class ProductoDAO {
                 "descripcion" => $fila["descripcion"],
                 "precio" => $fila["precio"],
                 "stock" => $fila["stock"],
-                "imagen" => $fila["imagen"]
+                "imagen" => $fila["imagen"],
+                "tipo" => $fila["tipo"] ?? null
             ];
         }
 
@@ -36,20 +37,23 @@ class ProductoDAO {
     public function crear($nombre, $descripcion, $precio, $stock) {
         $db = Database::getConnection();
         $stmt = $db->prepare(
-            "INSERT INTO producto (nombre, descripcion, precio, stock)
-             VALUES (?, ?, ?, ?)"
+            "INSERT INTO producto (nombre, descripcion, precio, stock, tipo)
+             VALUES (?, ?, ?, ?, ?)"
         );
-        $stmt->execute([$nombre, $descripcion, $precio, $stock]);
+        // por defecto tipo vacío si no se pasa
+        $tipo = func_num_args() >= 5 ? func_get_arg(4) : null;
+        $stmt->execute([$nombre, $descripcion, $precio, $stock, $tipo]);
     }
 
     public function actualizar($id, $nombre, $descripcion, $precio, $stock) {
         $db = Database::getConnection();
         $stmt = $db->prepare(
             "UPDATE producto 
-             SET nombre=?, descripcion=?, precio=?, stock=? 
+             SET nombre=?, descripcion=?, precio=?, stock=?, tipo=? 
              WHERE id_producto=?"
         );
-        $stmt->execute([$nombre, $descripcion, $precio, $stock, $id]);
+        $tipo = func_num_args() >= 6 ? func_get_arg(5) : null;
+        $stmt->execute([$nombre, $descripcion, $precio, $stock, $tipo, $id]);
     }
 
     public function eliminar($id) {
@@ -78,7 +82,8 @@ class ProductoDAO {
             (float) $fila["precio"],
             (int) $fila["stock"],
             $id_oferta,
-            $fila["imagen"] ?? null
+            $fila["imagen"] ?? null,
+            $fila["tipo"] ?? null
         );
     }
 }

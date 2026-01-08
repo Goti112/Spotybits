@@ -9,7 +9,6 @@ require_once __DIR__ . '/../model/dao/ProductoDAO.php';
 require_once __DIR__ . '/../database/database.php';
 
 class UsuarioPedidosController {
-
     private PedidoDAO $pedidoDao;
     private ProductoDAO $productoDao;
 
@@ -29,14 +28,14 @@ class UsuarioPedidosController {
         $idUsuario = (int)($_SESSION['id_usuario'] ?? 0);
         $usuarioNombre = $_SESSION['usuario'] ?? '';
 
-        // obtiene todos los pedidos
+        // obtiene todos los pedidos de la base de datos
         $todos = $this->pedidoDao->obtenerTodos();
 
         // filtra los pedidos del usuario logeado
         $pedidosUsuario = array_values(array_filter($todos, function($p) use ($idUsuario) {
             return isset($p['id_usuario']) && (int)$p['id_usuario'] === (int)$idUsuario;
         }));
-        //por cada pedido uqe hay se obtienen sus lineas de pedido
+        //por cada pedido se obtienen sus lineas de pedido desde la tabla linea_pedido
         $db = Database::getConnection();
         $stmtLineas = $db->prepare("SELECT * FROM linea_pedido WHERE id_pedido = ?");
 

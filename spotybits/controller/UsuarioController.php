@@ -112,6 +112,7 @@ class UsuarioController {
 }
 
     public function logout() {
+        // cerrar sesion y registrar logout en logs
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
         require_once __DIR__ . '/../model/dao/LogDAO.php';
         $logDAO = new LogDAO();

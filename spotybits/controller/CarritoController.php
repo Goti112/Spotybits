@@ -3,6 +3,7 @@
 class CarritoController {
 
     public function agregar() {
+        // añadir 1 unidad del producto al carrito de la sesión
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
         if (!isset($_POST['id_producto'])) {
@@ -23,6 +24,7 @@ class CarritoController {
     }
 
     public function eliminar() {
+        // eliminar producto del carrito por id si existe
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
         $idProducto = (int) ($_POST['id_producto'] ?? 0);
@@ -35,6 +37,7 @@ class CarritoController {
     }
 
     public function ver() {
+        // muestra la vista del carrito
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
         $carrito = $_SESSION['carrito'] ?? [];
@@ -43,6 +46,8 @@ class CarritoController {
     }
 
     public function confirmarPedido() {
+        // valida sesion, calcula totales, aplica oferta
+        // crea pedido en la base de datos y registra log
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
         if (empty($_SESSION['carrito'])) {
@@ -100,7 +105,7 @@ class CarritoController {
             ];
         }
 
-        // --- logica de oferta ---
+        // obtener oferta activa para aplicar descuento si se cumple el minimo
         require_once __DIR__ . '/../model/dao/OfertaDAO.php';
         $ofertaDAO = new OfertaDAO();
         $ofertaActiva = $ofertaDAO->obtenerOfertaActiva();
@@ -123,7 +128,8 @@ class CarritoController {
         try {
             $pedidoDAO->getDb()->beginTransaction();
 
-            // crear Pedido
+            //creacion del pedido
+            // se inserta la cabecera y luego las lineas de pedido en la bd
             $idPedido = $pedidoDAO->crearPedido($importeFinal, $idUsuario, 'pendiente', $idOfertaAplicada);
             $pedidoDAO->insertarLineas($idPedido, $lineas);
 
@@ -135,7 +141,7 @@ class CarritoController {
                 $idUsuario,
                 'CREAR_PEDIDO #' . $idPedido
             );  
-            // guardar info del ultimo pedido
+            // guardar info del ultimo pedido en sesión para mostrar confirmación
             $_SESSION['ultimo_pedido'] = [
                 'id' => $idPedido,
                 'fecha' => date('Y-m-d H:i:s'),

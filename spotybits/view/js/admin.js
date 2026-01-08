@@ -41,14 +41,14 @@ function cargarSeccion(seccion) {
     }
 
     if (seccion === "monedas") {
-        // Renderizamos la sección de monedas: lista de pedidos con importes en EUR
+        // carga la sección de monedas
         cargarMonedas();
     }
 
     if (seccion === "ofertas") {
         const wrapper = document.getElementById('oferta-form-wrapper');
         if (wrapper) {
-            // mostrar el wrapper original (está fuera del contenedor principal)
+            // mostrar el wrapper original
             wrapper.style.display = '';
             // asegurar que el contenedor principal quede vacío
             contenedor.innerHTML = '';
@@ -82,6 +82,15 @@ function pintarFormularioProducto() {
                 <input type="number" class="form-control" id="stock" placeholder="Stock" required>
             </div>
 
+            <div class="mb-2">
+                <label class="form-label">Tipo</label>
+                <select id="tipo" class="form-select">
+                    <option value="primer">Primer plato</option>
+                    <option value="segundo">Segundo plato</option>
+                    <option value="postre">Postre</option>
+                    <option value="bebida">Bebida</option>
+                </select>
+            </div>
             <button class="btn btn-success">Guardar producto</button>
         </form>
 
@@ -92,7 +101,7 @@ function pintarFormularioProducto() {
         .addEventListener("submit", crearProducto);
 }
 
-//functiones para cargar y mostrar productos
+//funciones para cargar y mostrar productos
 function cargarProductos() {
     fetch("/Web_Spotify/SPOTYBITS/spotybits/controller/api/productosAPI.php")
         .then(res => res.json())
@@ -136,7 +145,8 @@ function crearProducto(e) {
         nombre: nombre.value,
         descripcion: descripcion.value,
         precio: precio.value,
-        stock: stock.value
+        stock: stock.value,
+        tipo: (document.getElementById('tipo') ? document.getElementById('tipo').value : null)
     };
 
     let method = "POST";
@@ -169,9 +179,33 @@ function editarProducto(id) {
             descripcion.value = producto.descripcion;
             precio.value = producto.precio;
             stock.value = producto.stock;
+            if (producto.tipo && document.getElementById('tipo')) document.getElementById('tipo').value = producto.tipo;
 
             document.getElementById("form-producto").dataset.editando = id;
         });
+}
+
+// función para eliminar un producto
+function eliminarProducto(id) {
+    if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+
+    fetch("/Web_Spotify/SPOTYBITS/spotybits/controller/api/productosAPI.php", {
+        method: "DELETE",
+        credentials: 'same-origin',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+    })
+    .then(async res => {
+        const ct = res.headers.get('Content-Type') || '';
+        let data = null;
+        if (ct.includes('application/json')) data = await res.json();
+        if (!res.ok) {
+            const msg = data && data.error ? data.error : 'Error al eliminar';
+            throw new Error(msg);
+        }
+        cargarSeccion("productos");
+    })
+    .catch(err => alert('No se pudo eliminar el producto: ' + (err.message || err)));
 }
 
 //funciones para cargar y mostrar pedidos
@@ -240,7 +274,7 @@ function mostrarPedidos(pedidos) {
 
     html += `</tbody></table>`;
     contenedor.innerHTML = html;
-    // Inicializar widget de monedas si existe el script
+    // inicializar widget de monedas si existe el script
     if (window.initCurrencyWidget) {
         try { window.initCurrencyWidget(); } catch (e) { console.error('initCurrencyWidget error', e); }
     }
