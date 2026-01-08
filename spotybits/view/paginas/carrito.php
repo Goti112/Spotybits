@@ -78,47 +78,6 @@ $total = 0;
 
     <hr class="mb-5">
 
-
-<!-- direccion -->
-
-    <div class="row justify-content-center mb-5">
-            <div class="col-md-6">
-        <h4 class="mb-3">Dirección</h4>
-        <p class="text-muted">Los impuestos se calculan en función de tu dirección.</p>
-
-        <form id="direccion-form">
-            <div class="mb-3">
-                <label class="form-label">Calle</label>
-                <input type="text" id="direccion_calle" name="calle" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Localidad</label>
-                <input type="text" id="direccion_localidad" name="localidad" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Estado</label>
-                <input type="text" id="direccion_estado" name="estado" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Código Postal</label>
-                <input type="text" id="direccion_cp" name="codigo_postal" class="form-control">
-            </div>
-
-            <div class="d-flex gap-2 address-actions">
-                <button type="button" class="btn btn-outline-light">
-                    Guardar dirección
-                </button>
-                <button type="button" class="btn btn-outline-secondary">
-                    Cancelar
-                </button>
-            </div>
-        </form>
-    </div>
-  <hr class="mb-5">
-
   <!-- resumen -->
   <div class="row justify-content-center mb-5">
       <div class="col-md-4">

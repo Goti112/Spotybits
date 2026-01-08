@@ -128,15 +128,6 @@ hr {
     color: #222222;
 }
 
-
-/* direccion */
-
-.address-actions {
-    margin-top: 12px;
-    margin-bottom: 28px;
-}
-
-
 /* responsive */
 
 @media (max-width: 767px) {
