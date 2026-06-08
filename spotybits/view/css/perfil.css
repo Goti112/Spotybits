@@ -1,0 +1,32 @@
+.perfil-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.perfil-titulo {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.perfil-card {
+    background-color: #111;
+    border-radius: 12px;
+    border: none;
+}
+
+.perfil-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #2a2a2a;
+    color: #e0e0e0;
+}
+
+.perfil-item:last-child {
+    border-bottom: none;
+}
+
+.perfil-item .label {
+    font-weight: 600;
+    color: #9adf9a;
+}

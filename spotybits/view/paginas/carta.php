@@ -6,7 +6,11 @@
         <div class="card sidebar p-3">
             <div class="usuario mb-4">
                 <i class="bi bi-person-circle"></i>
-                <span>Usuario</span>
+                <?php if (!empty($_SESSION['usuario'])): ?>
+                    <span><?= htmlspecialchars($_SESSION['usuario']) ?></span>
+                <?php else: ?>
+                    <span>Invitado</span>
+                <?php endif; ?>
             </div>
 
             <div class="filtro-titulo">Tipo de plato</div>
@@ -57,38 +61,6 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-
-            <script>
-                (function(){
-                    const filtros = document.querySelectorAll('.filtros li');
-                    const productos = document.querySelectorAll('.producto-col');
-
-                    if (!filtros || filtros.length === 0) return;
-
-                    filtros.forEach(li => li.addEventListener('click', function(){
-                        filtros.forEach(x => x.classList.remove('activo'));
-                        this.classList.add('activo');
-
-                        const texto = this.textContent.trim().toLowerCase();
-                        const map = {
-                            'primer plato': 'primer',
-                            'segundo plato': 'segundo',
-                            'postres': 'postre',
-                            'postre': 'postre',
-                            'bebidas': 'bebida',
-                            'bebida': 'bebida'
-                        };
-
-                        const tipo = map[texto] || null;
-
-                        productos.forEach(col => {
-                            const t = (col.dataset.tipo || '').toLowerCase();
-                            if (!tipo) { col.style.display = ''; return; }
-                            col.style.display = (t === tipo) ? '' : 'none';
-                        });
-                    }));
-                })();
-            </script>
 
         <?php endif; ?>
     </section>

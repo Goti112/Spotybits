@@ -97,7 +97,7 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'admin') 
                 </div>
 
                 <div class="col-12">
-                    <button class="btn btn-primary">Guardar oferta</button>
+                    <button class="btn btn-success">Guardar oferta</button>
                 </div>
             </form>
             </div>
@@ -107,5 +107,8 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'admin') 
 
 </div>
 
-<script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/admin.js"></script>
+<script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/adminProductos.js"></script>
+<script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/adminPedidos.js"></script>
+<script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/adminLogs.js"></script>
 <script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/adminMonedas.js"></script>
+<script src="/Web_Spotify/SPOTYBITS/spotybits/view/js/admin.js"></script>

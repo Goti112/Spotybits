@@ -131,35 +131,6 @@ $total = 0;
       </div>
   </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-    const confirmForm = document.getElementById('confirmar-pedido-form');
-    if(!confirmForm) return;
-
-    confirmForm.addEventListener('submit', function(e){
-        const fields = [
-            ['calle','direccion_calle'],
-            ['localidad','direccion_localidad'],
-            ['estado','direccion_estado'],
-            ['codigo_postal','direccion_cp']
-        ];
-
-        fields.forEach(pair => {
-            const name = pair[0];
-            const id = pair[1];
-            const input = document.getElementById(id);
-            const existing = confirmForm.querySelector('input[name="'+name+'"]');
-            if (existing) existing.remove();
-            const hidden = document.createElement('input');
-            hidden.type = 'hidden';
-            hidden.name = name;
-            hidden.value = input ? input.value : '';
-            confirmForm.appendChild(hidden);
-        });
-    });
-});
-</script>
-
   <?php endif; ?>
 
 </div>

@@ -33,6 +33,18 @@ if (isset($_GET['accion'])) {
             $usuarioController->logout();
             break;
 
+        case 'actualizarPerfil':
+            require_once __DIR__ . '/controller/UsuarioController.php';
+            $controller = new UsuarioController();
+            $controller->guardarPerfil();
+            break;
+
+        case 'cambiarPassword':
+            require_once __DIR__ . '/controller/UsuarioController.php';
+            $controller = new UsuarioController();
+            $controller->cambiarPassword();
+            break;
+
         // ---------- carrito ----------
         case 'agregarCarrito':
             $carritoController->agregar();
@@ -90,6 +102,13 @@ switch ($pagina) {
         $controller = new UsuarioPedidosController();
         $controller->listar();
         exit;
+
+    case 'perfil':
+        require_once __DIR__ . '/controller/UsuarioController.php';
+        $controller = new UsuarioController();
+        $controller->mostrarPerfil();
+        exit;
+
 
     default:
         $ruta = __DIR__ . "/view/paginas/$pagina.php";

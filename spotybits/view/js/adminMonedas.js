@@ -1,113 +1,166 @@
-const API_KEY = 'fca_live_T9ZBfrq8iA7HTWnxLj2ZQ1aP95jfDejqi1ANb2zc';
+// Servicio de conversión de moneda y sección Monedas del admin
 
+const CURRENCY_API_KEY = 'fca_live_T9ZBfrq8iA7HTWnxLj2ZQ1aP95jfDejqi1ANb2zc';
+
+// Clase para obtener tipos de cambio desde la API
 class CurrencyService {
-    constructor(apiKey = API_KEY, base = 'EUR') {
+    constructor(apiKey, base = 'EUR') {
         this.apiKey = apiKey;
         this.base = base;
         this.endpoint = 'https://api.freecurrencyapi.com/v1/latest';
     }
 
-    // obtiene tipos de cambio relativos a EUR.
+    // Obtiene tipos de cambio relativos a la moneda base
     async getRates(symbols = []) {
-        const symbolsParam = symbols.filter(s => s && s !== this.base).join(',');
-
         const url = new URL(this.endpoint);
         url.searchParams.set('apikey', this.apiKey);
         url.searchParams.set('base_currency', this.base);
-        if (symbolsParam) url.searchParams.set('symbols', symbolsParam);
+
+        const filtered = symbols.filter(s => s && s !== this.base).join(',');
+        if (filtered) url.searchParams.set('symbols', filtered);
 
         const res = await fetch(url.toString());
-        if (!res.ok) {
-            throw new Error('Network response was not ok');
-        }
+        if (!res.ok) throw new Error('Error de red');
 
         const json = await res.json();
-
         const rates = json.data || json.rates || json;
+        if (!rates) throw new Error('Respuesta inválida');
 
-        if (!rates) throw new Error('Invalid response from currency API');
-
-        const normalized = Object.assign({}, rates);
-        normalized[this.base] = 1;
-
-        return normalized;
+        rates[this.base] = 1;
+        return rates;
     }
 }
 
-//inicializador global llamado desde admin.js después de renderizar la tabla de pedidos
-window.initCurrencyWidget = function initCurrencyWidget() {
-    const select = document.getElementById('currency-select-admin');
-    const errorDiv = document.getElementById('currency-error');
-    const thTotal = document.getElementById('th-total');
+// HTML compartido del selector de moneda (reutilizado en Pedidos y Monedas)
+function currencyWidgetHTML() {
+    return `
+        <div class="mb-3 d-flex align-items-center">
+            <label for="currency-select-admin" class="me-2 mb-0">Moneda:</label>
+            <select id="currency-select-admin" class="form-select form-select-sm w-auto">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="MXN">MXN</option>
+            </select>
+            <div id="currency-error" class="text-danger ms-3" style="display:none"></div>
+        </div>
+    `;
+}
 
-    if (!select) return; 
+// Sección "Monedas": muestra pedidos con conversión de moneda
+class AdminMonedas {
+    constructor(apiPedidos) {
+        this.api = apiPedidos;
+        this.contenedor = null;
+    }
 
-    const supported = ['EUR','USD','GBP','MXN'];
+    // Punto de entrada
+    async cargar(contenedor) {
+        this.contenedor = contenedor;
+        await this.listar();
+    }
 
-    //restaurar moneda de localStorage o por defecto EUR
-    const stored = localStorage.getItem('admin_currency') || 'EUR';
-    if (supported.includes(stored)) select.value = stored;
-
-    const service = new CurrencyService(API_KEY, 'EUR');
-
-    async function updateCurrency(to) {
-        errorDiv.style.display = 'none';
-        thTotal.textContent = `Total (${to})`;
-
-        //si la moneda es EUR no necesitamos llamar a la API
-        let rates = { EUR: 1 };
+    // Obtiene pedidos de la API
+    async listar() {
         try {
-            if (to !== 'EUR') {
-                const r = await service.getRates([to]);
-                rates = r;
-            }
-
-            // convierte todos los importes que tengan el atributo data-eur
-            const nodes = Array.from(document.querySelectorAll('.importe'));
-
-            // obtiene los importes convertidos y actualizar cada celda
-            const converted = nodes.map(node => {
-                const eur = parseFloat(node.dataset.eur || '0') || 0;
-                const factor = rates[to] || 1;
-                const value = eur * factor;
-
-                //formateo de moneda usando Intl
-                try {
-                    node.textContent = new Intl.NumberFormat(undefined, { style: 'currency', currency: to }).format(value);
-                } catch (e) {
-                    node.textContent = value.toFixed(2) + ' ' + to;
-                }
-
-                return value;
-            });
-
-            const totalSum = converted.reduce((acc, cur) => acc + cur, 0);
-
-            console.debug('Total pedidos en', to, totalSum);
-
-        } catch (err) {
-            console.error('Currency error', err);
-            errorDiv.style.display = '';
-            errorDiv.textContent = 'No se ha podido obtener el tipo de cambio. Mostrando EUR.';
-            localStorage.setItem('admin_currency', 'EUR');
-            select.value = 'EUR';
-            document.querySelectorAll('.importe').forEach(node => {
-                const eur = parseFloat(node.dataset.eur || '0') || 0;
-                node.textContent = eur.toFixed(2) + ' EUR';
-            });
-            thTotal.textContent = 'Total (EUR)';
+            const res = await fetch(this.api);
+            const pedidos = await res.json();
+            this.pintar(pedidos);
+        } catch {
+            this.contenedor.innerHTML = "<p class='text-muted'>No se pudieron cargar los pedidos</p>";
         }
     }
 
-    // evento al cambiar
+    // Renderiza tabla de pedidos con selector de moneda
+    pintar(pedidos) {
+        if (!pedidos?.length) {
+            this.contenedor.innerHTML = "<p class='text-muted'>No hay pedidos</p>";
+            return;
+        }
+
+        let html = `
+            <h5 class="mb-3">Pedidos (conversión de moneda)</h5>
+            ${currencyWidgetHTML()}
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th id="th-total">Total (EUR)</th>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        pedidos.forEach(p => {
+            html += `
+                <tr>
+                    <td>${escapeHTML(p.id)}</td>
+                    <td>${escapeHTML(p.fecha)}</td>
+                    <td class="importe" data-eur="${escapeHTML(p.importe_total)}">${escapeHTML(p.importe_total)}</td>
+                    <td>${escapeHTML(p.id_usuario ?? '—')}</td>
+                </tr>
+            `;
+        });
+
+        html += `</tbody></table>`;
+        this.contenedor.innerHTML = html;
+
+        // Activar widget de conversión
+        if (window.initCurrencyWidget) window.initCurrencyWidget();
+    }
+}
+
+// Widget global de conversión de moneda
+// Lo usan tanto Pedidos como Monedas tras renderizar sus tablas
+window.initCurrencyWidget = function () {
+    const select = document.getElementById('currency-select-admin');
+    const errorDiv = document.getElementById('currency-error');
+    const thTotal = document.getElementById('th-total');
+    if (!select) return;
+
+    // Restaurar moneda guardada
+    const stored = localStorage.getItem('admin_currency') || 'EUR';
+    if (['EUR', 'USD', 'GBP', 'MXN'].includes(stored)) select.value = stored;
+
+    const service = new CurrencyService(CURRENCY_API_KEY);
+
+    // Convierte todos los importes a la moneda seleccionada
+    async function convertir(to) {
+        errorDiv.style.display = 'none';
+        thTotal.textContent = `Total (${to})`;
+
+        try {
+            const rates = to === 'EUR' ? { EUR: 1 } : await service.getRates([to]);
+
+            document.querySelectorAll('.importe').forEach(node => {
+                const eur = parseFloat(node.dataset.eur) || 0;
+                const valor = eur * (rates[to] || 1);
+                try {
+                    node.textContent = new Intl.NumberFormat(undefined, { style: 'currency', currency: to }).format(valor);
+                } catch {
+                    node.textContent = valor.toFixed(2) + ' ' + to;
+                }
+            });
+        } catch {
+            errorDiv.style.display = '';
+            errorDiv.textContent = 'No se pudo obtener el tipo de cambio.';
+            localStorage.setItem('admin_currency', 'EUR');
+            select.value = 'EUR';
+            thTotal.textContent = 'Total (EUR)';
+            document.querySelectorAll('.importe').forEach(n => {
+                n.textContent = (parseFloat(n.dataset.eur) || 0).toFixed(2) + ' EUR';
+            });
+        }
+    }
+
+    // Evento: cambio de moneda
     select.addEventListener('change', (e) => {
-        const moneda = e.target.value;
-        localStorage.setItem('admin_currency', moneda);
-        updateCurrency(moneda);
+        localStorage.setItem('admin_currency', e.target.value);
+        convertir(e.target.value);
     });
 
-    // inicializar con la moneda guardada
-    updateCurrency(select.value);
+    // Convertir al cargar
+    convertir(select.value);
 };
-
-if (typeof module !== 'undefined') module.exports = { CurrencyService };

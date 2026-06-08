@@ -8,7 +8,7 @@
 
             <!-- logo y nombre -->
             <div class="footer-logo-columna">
-                <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/Logo_SpotyBits.png"
+                <img src="/Web_Spotify/SPOTYBITS/spotybits/view/assets/Logo_SpotyBits.svg"
                      alt="Logo SpotyBits"
                      class="footer-logo">
                 <h2 class="footer-titulo">SpotyBits</h2>

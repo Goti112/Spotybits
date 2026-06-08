@@ -77,4 +77,50 @@ class UsuarioDAO {
         );
     }
 
+    public function actualizarPerfil(
+    int $idUsuario,
+    string $nombre,
+    string $email,
+    ?string $telefono,
+    ?string $direccion
+): bool {
+
+    $db = Database::getConnection();
+
+    $sql = "
+        UPDATE usuarios
+        SET nombre = ?, email = ?, telefono = ?, direccion = ?
+        WHERE id_usuario = ?
+    ";
+
+    $stmt = $db->prepare($sql);
+
+    return $stmt->execute([
+        $nombre,
+        $email,
+        $telefono,
+        $direccion,
+        $idUsuario
+    ]);
+}
+
+public function actualizarPassword(int $idUsuario, string $passwordHash): bool {
+
+    $db = Database::getConnection();
+
+    $sql = "
+        UPDATE usuarios
+        SET contrasena = ?
+        WHERE id_usuario = ?
+    ";
+
+    $stmt = $db->prepare($sql);
+
+    return $stmt->execute([
+        $passwordHash,
+        $idUsuario
+    ]);
+}
+
+
 }

@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotyBits - Inicio</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/inicio.css">
-</head>
-<body class="bg-dark text-white">
-
-    <!-- banner principal -->
-    <section id="banner-principal" class="banner-principal position-relative">
+<!-- banner principal -->
+<section id="banner-principal" class="banner-principal position-relative">
         <div class="banner-fondo" aria-hidden="true"></div>
         <div class="container position-relative texto-banner text-center text-md-start">
             <div class="row align-items-center">
@@ -117,12 +105,8 @@
                 <p class="text-white-50 mb-4">
                     Reserva ahora y elige la playlist que sonará en tu mesa. ¡Solo en SpotyBits!
                 </p>
-                <a href="index.php?pagina=registro" class="btn btn-light btn-promocion px-4 py-2">Reservar ahora</a>
+                <a href="index.php?pagina=registro" class="btn btn-success btn-promocion px-4 py-2">Reservar ahora</a>
             </div>
         </div>
     </div>
 </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

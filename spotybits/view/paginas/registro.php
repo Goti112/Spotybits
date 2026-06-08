@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/Web_Spotify/SPOTYBITS/spotybits/view/css/registro.css">
-
 <div class="contenedor-registro">
     <h2 class="titulo-registro">Crear cuenta</h2>
 

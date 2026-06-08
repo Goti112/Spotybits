@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="view/css/login.css">
-
 <div class="contenedor-login">
 
     <h2 class="titulo-login">Iniciar sesión</h2>
